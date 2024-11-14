@@ -1,0 +1,417 @@
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            /* Light blue background */
+            color: #333;
+            padding: 20px;
+        }
+
+        /* Navbar Styles */
+        nav {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007BFF;
+            /* Blue color */
+            border-radius: 15px;
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+            width: 30px;
+            height: 30px;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .hamburger div {
+            background-color: white;
+            height: 4px;
+            width: 100%;
+            border-radius: 2px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Navbar Styles */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            position: absolute;
+            /* Make sure it’s positioned correctly */
+            top: 60px;
+            /* Adjust based on your layout */
+            width: 100%;
+            background-color: #007BFF;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: scaleY(0);
+            /* Initially collapsed */
+            transform-origin: top;
+            /* Collapse from the top */
+            opacity: 0;
+            /* Initially hidden */
+            overflow: hidden;
+            /* Ensure no overflow when collapsed */
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            /* Smooth transition */
+            margin-top: 15px;
+            /* Margin added to the top */
+        }
+
+        /* When nav is active, expand it */
+        .nav-links.active {
+            transform: scaleY(1);
+            /* Expand the menu */
+            opacity: 1;
+            /* Fully visible */
+        }
+
+        /* The <ul> list inside the nav */
+        .nav-links ul {
+            list-style-type: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            margin-top: 20px;
+            /* Adjusted space between the items */
+        }
+
+        /* Individual nav items */
+        .nav-links li {
+            padding: 20px;
+            padding-bottom: 25px;
+            text-align: center;
+            border-bottom: 2px solid #fff;
+            width: 100%;
+        }
+
+        /* Link styles inside <ul> */
+        .nav-links ul li a {
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .nav-links ul li a:hover {
+            background-color: #0056b3;
+            border-radius: 5px;
+        }
+
+        /* Responsive Styles for smaller screens */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            /* Mobile version: hide nav links by default */
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            /* When the menu is active, show the nav links */
+            .nav-links.active {
+                display: flex;
+            }
+
+            /* For mobile, the links should be stacked vertically */
+            .nav-links ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .nav-links ul li a {
+                font-size: 22px;
+                padding: 15px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+
+        /* Dropdown menu styles */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background-color: #0056b3;
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: slideDown 0.5s ease-in-out;
+        }
+
+        .dropdown ul {
+            list-style-type: none;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .dropdown ul li {
+            margin: 10px 0;
+        }
+
+        .dropdown ul li a {
+            color: white;
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .dropdown ul li a:hover {
+            background-color: #003d80;
+        }
+
+        /* Hamburger cross animation */
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(11px, 5px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(11px, -5px);
+        }
+
+        /* Task Card Styles */
+        .task-card {
+            background-color: #ffffff;
+            /* Soft white background */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Soft shadow for depth */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            /* Cursor changes to pointer to indicate interactivity */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+        }
+
+        .task-card:hover {
+            transform: translateY(-5px);
+            /* Lift the card slightly on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            /* Stronger shadow on hover */
+        }
+
+        .task-card input[type="checkbox"] {
+            display: none;
+            /* Hide the checkbox */
+        }
+
+        /* Title and Time */
+        .task-card h3 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            /* Dark grey for text */
+            margin-bottom: 10px;
+        }
+
+        /* Description */
+        .task-card p {
+            font-size: 16px;
+            color: #555;
+            /* Slightly lighter grey for description */
+            margin-bottom: 15px;
+        }
+
+        /* Completed Task (Checkbox) Styles */
+        .task-card.completed {
+            background-color: #d1ffd6;
+            /* Soft green background when completed */
+            text-decoration: line-through;
+            /* Strike-through text */
+            color: #666;
+            /* Greyed out text */
+        }
+
+        .task-card.completed h3,
+        .task-card.completed p {
+            color: #999;
+            /* Lighter grey for completed tasks */
+        }
+
+        /* Hover effect for checkbox */
+        .task-card input[type="checkbox"]:checked+label {
+            background-color: #d1ffd6;
+            /* Green background on complete */
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        /* Invisible checkbox styling */
+        .task-card input[type="checkbox"]:checked {
+            display: none;
+        }
+
+        /* Label for checkbox */
+        .task-card label {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007BFF;
+            /* Blue background for the checkbox */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: white;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .task-card label:hover {
+            background-color: #0056b3;
+            /* Darker blue when hovering over checkbox */
+        }
+
+        /* Optional: When task is completed, the checkbox disappears (clean look) */
+        .task-card.completed label {
+            display: none;
+        }
+
+        /* Progress Circle */
+        .progress-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .circle {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#007BFF 0% 0%, #f0f8ff 0% 100%);
+            display: inline-block;
+            margin: auto;
+            padding: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .circle .percentage {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25px;
+            font-weight: bold;
+            color: #007BFF;
+            padding: 25px;
+            /* Increased padding */
+            background-color: white;
+            /* White background for the circle */
+            border-radius: 50%;
+            /* Makes the background a circle */
+            width: 70px;
+            /* Adjusted width to accommodate the increased padding */
+            height: 70px;
+            /* Adjusted height to maintain circle shape */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            /* Optional shadow */
+        }
+
+
+
+        /* Animation for dropdown */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 1s ease;
+            }
+
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                z-index: 10;
+                top: 60px;
+                width: 100%;
+                background-color: #007BFF;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                max-height: 1000px;
+                transition: max-height 1s ease-in-out;
+
+            }
+
+
+            .nav-links ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+            }
+
+            .nav-links ul li a {
+                font-size: 22px;
+                padding: 15px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .nav__barContainer {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px;
+
+        }
